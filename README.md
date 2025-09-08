@@ -1,50 +1,262 @@
-# Welcome to your Expo app 👋
+# PSE React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native library that provides a secure WebView component for integrating Gnosis Pay card functionality into your mobile applications.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 🔒 **Secure WebView Integration** - Safely embed Gnosis Pay card interfaces
+- 📱 **Cross-Platform** - Works on both iOS and Android
+- ⚡ **Easy Integration** - Simple component with minimal setup
+- 🎛️ **Configurable** - Flexible configuration options for different environments
+- 📨 **Message Handling** - Built-in communication between WebView and React Native
+- 🔄 **WebView Controls** - Programmatic navigation and reload capabilities
+
+## Installation
+
+```bash
+npm install pse-react-native
+```
+
+### Peer Dependencies
+
+Make sure you have the required peer dependencies installed:
+
+```bash
+npm install react-native-webview
+```
+
+For Expo projects:
+
+```bash
+npx expo install react-native-webview
+```
+
+## Basic Usage
+
+```tsx
+import React, { useRef } from "react";
+import { View, Button, Alert } from "react-native";
+import { PSEWebView, PSEWebViewRef } from "pse-react-native";
+
+export default function PaymentScreen() {
+  const webViewRef = useRef<PSEWebViewRef>(null);
+
+  const config = {
+    appId: "your-app-id",
+    authToken: "your-auth-token",
+    cardToken: "your-card-token",
+    baseUrl: "https://pse-backend.v2.gnosispay.com", // Optional
+  };
+
+  const handleError = (error: string) => {
+    Alert.alert("Payment Error", error);
+  };
+
+  const handleMessage = (message: any) => {
+    console.log("Received message from WebView:", message);
+    // Handle different message types from the WebView
+  };
+
+  const handleLoad = () => {
+    console.log("WebView loaded successfully");
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <PSEWebView
+        ref={webViewRef}
+        config={config}
+        onError={handleError}
+        onMessage={handleMessage}
+        onLoad={handleLoad}
+        style={{ flex: 1 }}
+        testID="pse-webview"
+      />
+
+      <View style={{ padding: 16 }}>
+        <Button title="Reload" onPress={() => webViewRef.current?.reload()} />
+        <Button title="Go Back" onPress={() => webViewRef.current?.goBack()} />
+      </View>
+    </View>
+  );
+}
+```
+
+## API Reference
+
+### PSEWebView Props
+
+| Prop        | Type                      | Required | Description                                      |
+| ----------- | ------------------------- | -------- | ------------------------------------------------ |
+| `config`    | `PSEConfig`               | ✅       | Configuration object with authentication details |
+| `onError`   | `(error: string) => void` | ❌       | Callback fired when an error occurs              |
+| `onMessage` | `(message: any) => void`  | ❌       | Callback fired when WebView sends a message      |
+| `onLoad`    | `() => void`              | ❌       | Callback fired when WebView finishes loading     |
+| `style`     | `ViewStyle`               | ❌       | Style object for the WebView container           |
+| `testID`    | `string`                  | ❌       | Test identifier for testing frameworks           |
+
+### PSEConfig
+
+```tsx
+interface PSEConfig {
+  appId: string; // Your application identifier
+  authToken: string; // Authentication token
+  cardToken: string; // Card-specific token
+  baseUrl?: string; // Optional: Custom backend URL
+}
+```
+
+### PSEWebViewRef Methods
+
+The component exposes these methods via ref:
+
+```tsx
+interface PSEWebViewRef {
+  goBack: () => void; // Navigate back in WebView history
+  reload: () => void; // Reload the current page
+  postMessage: (message: string) => void; // Send message to WebView
+}
+```
+
+## Message Handling
+
+The WebView can send various message types. Handle them in your `onMessage` callback:
+
+```tsx
+const handleMessage = (message: any) => {
+  switch (message.type) {
+    case "error":
+      console.error("WebView error:", message.message);
+      break;
+    case "success":
+      console.log("Operation successful:", message.data);
+      break;
+    case "navigation":
+      console.log("Navigation event:", message.url);
+      break;
+    default:
+      console.log("Unknown message type:", message);
+  }
+};
+```
+
+## Error Handling
+
+The component provides comprehensive error handling:
+
+```tsx
+const handleError = (error: string) => {
+  // Common error scenarios:
+  // - Network connectivity issues
+  // - Invalid authentication tokens
+  // - WebView loading failures
+  // - Backend service unavailable
+
+  console.error("PSE WebView Error:", error);
+
+  // Show user-friendly error message
+  Alert.alert(
+    "Payment Error",
+    "Unable to load payment interface. Please try again.",
+    [{ text: "OK", onPress: () => webViewRef.current?.reload() }]
+  );
+};
+```
+
+## Configuration Environments
+
+### Production
+
+```tsx
+const config = {
+  appId: "your-prod-app-id",
+  authToken: "your-prod-auth-token",
+  cardToken: "your-prod-card-token",
+  baseUrl: "https://pse-backend.v2.gnosispay.com",
+};
+```
+
+### Staging/Testing
+
+```tsx
+const config = {
+  appId: "your-staging-app-id",
+  authToken: "your-staging-auth-token",
+  cardToken: "your-staging-card-token",
+  baseUrl: "https://pse-backend-staging.v2.gnosispay.com",
+};
+```
+
+## Requirements
+
+- React Native >= 0.70.0
+- React >= 18.0.0
+- react-native-webview >= 13.0.0
+
+## Development
+
+This repository includes an example app to test the library:
+
+### Running the Example App
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd pse-react-native
+   ```
+
+2. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Start the example app:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. Open the app in your preferred development environment:
+   - iOS Simulator
+   - Android Emulator
+   - Physical device with Expo Go
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Building the Library
 
 ```bash
-npm run reset-project
+npm run build
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This compiles the TypeScript source files and generates the distribution files in the `lib/` directory.
 
-## Learn more
+## Troubleshooting
 
-To learn more about developing your project with Expo, look at the following resources:
+### Common Issues
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**WebView not loading:**
 
-## Join the community
+- Verify your authentication tokens are valid
+- Check network connectivity
+- Ensure the baseUrl is accessible
 
-Join our community of developers creating universal apps.
+**Authentication errors:**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Double-check your appId, authToken, and cardToken
+- Verify tokens haven't expired
+- Contact your PSE provider for token validation
+
+**Build errors:**
+
+- Ensure react-native-webview is properly installed
+- Check that peer dependencies match the required versions
+- Clear your Metro cache: `npx expo start --clear`
+
+## License
+
+[Add your license information here]
+
+## Support
+
+For technical support or questions about integration, please contact your PSE provider or create an issue in this repository.
