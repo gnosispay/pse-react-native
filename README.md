@@ -1,15 +1,19 @@
 # PSE React Native
 
-A React Native library that provides a secure WebView component for integrating Gnosis Pay card functionality into your mobile applications.
+A React Native library that provides a secure WebView component for integrating Gnosis Pay PSE functionality into your mobile applications.
 
-## Features
+## Setup
 
-- 🔒 **Secure WebView Integration** - Safely embed Gnosis Pay card interfaces
-- 📱 **Cross-Platform** - Works on both iOS and Android
-- ⚡ **Easy Integration** - Simple component with minimal setup
-- 🎛️ **Configurable** - Flexible configuration options for different environments
-- 📨 **Message Handling** - Built-in communication between WebView and React Native
-- 🔄 **WebView Controls** - Programmatic navigation and reload capabilities
+This guide assumes that you have already integrated PSE SDK into your web flow.
+
+On your backend, you first need to host the static HTML wrapper for the PSE SDK client.
+We have provided an [example HTML file](https://github.com/gnosispay/ui/blob/main/pse-backend-demo/src/static/native-webview.html) in our example for [backend integration](https://github.com/gnosispay/ui/blob/main/pse-backend-demo/).
+
+We recommend putting this endpoint in the same application that serves the ephemeral tokens to your PSE integration, so you can easily inject that token into the frame.
+
+Then you should pass the URL to this frame as `webViewUrl` parameter.
+
+Refer to [PSE Docs](https://docs.gnosispay.com/cards/pse-integration) for all further details.
 
 ## Installation
 
@@ -43,8 +47,8 @@ export default function PaymentScreen() {
 
   const config = {
     appId: "your-app-id",
-    authToken: "your-auth-token",
-    cardToken: "your-card-token",
+    authToken: "users-gnosispay-api-token",
+    cardToken: "users-card-token",
     webViewUrl: "https://pse-backend.v2.gnosispay.com/native-webview",
   };
 
