@@ -16,6 +16,10 @@
     "build": "tsc --project tsconfig.lib.json",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnosispay/pse-react-native"
+  },
   "keywords": [
     "react-native",
     "pse",
