@@ -62,8 +62,10 @@ const PSEWebView = forwardRef<PSEWebViewRef, PSEWebViewProps>(
       Alert.alert("PSE WebView Error", errorMessage);
     };
 
-    const baseUrl = config.baseUrl || "https://pse-backend.v2.gnosispay.com";
-    const webViewUrl = `${baseUrl}/native-webview`;
+    const webViewUrl = config.webViewUrl;
+    if (!webViewUrl) {
+      throw new Error("webViewUrl is required");
+    }
 
     return (
       <WebView

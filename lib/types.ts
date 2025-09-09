@@ -2,7 +2,7 @@ export interface PSEConfig {
   appId: string;
   authToken: string;
   cardToken: string;
-  baseUrl?: string;
+  webViewUrl?: string;
 }
 
 export interface PSEWebViewProps {

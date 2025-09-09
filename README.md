@@ -14,7 +14,7 @@ A React Native library that provides a secure WebView component for integrating 
 ## Installation
 
 ```bash
-npm install pse-react-native
+npm install @gnosispay/pse-react-native
 ```
 
 ### Peer Dependencies
@@ -36,7 +36,7 @@ npx expo install react-native-webview
 ```tsx
 import React, { useRef } from "react";
 import { View, Button, Alert } from "react-native";
-import { PSEWebView, PSEWebViewRef } from "pse-react-native";
+import { PSEWebView, PSEWebViewRef } from "@gnosispay/pse-react-native";
 
 export default function PaymentScreen() {
   const webViewRef = useRef<PSEWebViewRef>(null);
@@ -45,7 +45,7 @@ export default function PaymentScreen() {
     appId: "your-app-id",
     authToken: "your-auth-token",
     cardToken: "your-card-token",
-    baseUrl: "https://pse-backend.v2.gnosispay.com", // Optional
+    webViewUrl: "https://pse-backend.v2.gnosispay.com/native-webview",
   };
 
   const handleError = (error: string) => {
@@ -102,7 +102,7 @@ interface PSEConfig {
   appId: string; // Your application identifier
   authToken: string; // Authentication token
   cardToken: string; // Card-specific token
-  baseUrl?: string; // Optional: Custom backend URL
+  webViewUrl?: string; // Full URL where your PSE iframe is hosted
 }
 ```
 
@@ -172,7 +172,7 @@ const config = {
   appId: "your-prod-app-id",
   authToken: "your-prod-auth-token",
   cardToken: "your-prod-card-token",
-  baseUrl: "https://pse-backend.v2.gnosispay.com",
+  webViewUrl: "https://pse-backend.v2.gnosispay.com/native-webview",
 };
 ```
 
@@ -183,7 +183,7 @@ const config = {
   appId: "your-staging-app-id",
   authToken: "your-staging-auth-token",
   cardToken: "your-staging-card-token",
-  baseUrl: "https://pse-backend-staging.v2.gnosispay.com",
+  webViewUrl: "https://pse-backend-staging.v2.gnosispay.com/native-webview",
 };
 ```
 
@@ -239,7 +239,7 @@ This compiles the TypeScript source files and generates the distribution files i
 
 - Verify your authentication tokens are valid
 - Check network connectivity
-- Ensure the baseUrl is accessible
+- Ensure the webViewUrl is accessible
 
 **Authentication errors:**
 
