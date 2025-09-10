@@ -1,8 +1,11 @@
+import type { ElementType } from "@gnosispay/pse-sdk";
+
 export interface PSEConfig {
   appId: string;
-  authToken: string;
+  gnosisPayApiAuthToken: string;
   cardToken: string;
   webViewUrl?: string;
+  elementType: ElementType;
 }
 
 export interface PSEWebViewProps {

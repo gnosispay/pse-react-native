@@ -23,8 +23,9 @@ const PSEWebView = forwardRef<PSEWebViewRef, PSEWebViewProps>(
       // Send parameters to webview after it loads
       const params = {
         appId: config.appId.trim(),
-        authToken: config.authToken.trim(),
+        gnosisPayApiAuthToken: config.gnosisPayApiAuthToken.trim(),
         cardToken: config.cardToken.trim(),
+        elementType: config.elementType,
       };
 
       const message = JSON.stringify(params);

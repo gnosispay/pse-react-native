@@ -47,7 +47,7 @@ export default function PaymentScreen() {
 
   const config = {
     appId: "your-app-id",
-    authToken: "users-gnosispay-api-token",
+    gnosisPayApiAuthToken: "users-gnosispay-api-token",
     cardToken: "users-card-token",
     webViewUrl: "https://pse-backend.v2.gnosispay.com/native-webview",
   };
@@ -104,7 +104,7 @@ export default function PaymentScreen() {
 ```tsx
 interface PSEConfig {
   appId: string; // Your application identifier
-  authToken: string; // Authentication token
+  gnosisPayApiAuthToken: string; // Authentication token
   cardToken: string; // Card-specific token
   webViewUrl?: string; // Full URL where your PSE iframe is hosted
 }
@@ -174,7 +174,7 @@ const handleError = (error: string) => {
 ```tsx
 const config = {
   appId: "your-prod-app-id",
-  authToken: "your-prod-auth-token",
+  gnosisPayApiAuthToken: "your-prod-auth-token",
   cardToken: "your-prod-card-token",
   webViewUrl: "https://pse-backend.v2.gnosispay.com/native-webview",
 };
@@ -185,7 +185,7 @@ const config = {
 ```tsx
 const config = {
   appId: "your-staging-app-id",
-  authToken: "your-staging-auth-token",
+  gnosisPayApiAuthToken: "your-staging-auth-token",
   cardToken: "your-staging-card-token",
   webViewUrl: "https://pse-backend-staging.v2.gnosispay.com/native-webview",
 };
@@ -247,7 +247,7 @@ This compiles the TypeScript source files and generates the distribution files i
 
 **Authentication errors:**
 
-- Double-check your appId, authToken, and cardToken
+- Double-check your appId, gnosisPayApiAuthToken, and cardToken
 - Verify tokens haven't expired
 - Contact your PSE provider for token validation
 

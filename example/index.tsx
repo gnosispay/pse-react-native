@@ -5,10 +5,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { PSEWebView, type PSEWebViewRef } from "@/lib";
+import { ElementType } from "@gnosispay/pse-sdk";
 
 export default function HomeScreen() {
   const [appId, setAppId] = useState("gp_a1b2c3d4e5f678901234567890123456");
-  const [authToken, setAuthToken] = useState("");
+  const [gnosisPayApiAuthToken, setgnosisPayApiAuthToken] = useState("");
   const [cardToken, setCardToken] = useState("");
   const [showWebView, setShowWebView] = useState(false);
   const webViewRef = useRef<PSEWebViewRef>(null);
@@ -18,7 +19,7 @@ export default function HomeScreen() {
       Alert.alert("Error", "Please enter an App ID");
       return;
     }
-    if (!authToken.trim()) {
+    if (!gnosisPayApiAuthToken.trim()) {
       Alert.alert("Error", "Please enter a Gnosis Pay API auth token");
       return;
     }
@@ -63,8 +64,9 @@ export default function HomeScreen() {
           ref={webViewRef}
           config={{
             appId: appId.trim(),
-            authToken: authToken.trim(),
+            gnosisPayApiAuthToken: gnosisPayApiAuthToken.trim(),
             cardToken: cardToken.trim(),
+            elementType: ElementType.CardData,
           }}
           onError={handleWebViewError}
           onMessage={handleWebViewMessage}
@@ -107,8 +109,8 @@ export default function HomeScreen() {
           </ThemedText>
           <TextInput
             style={styles.textInput}
-            value={authToken}
-            onChangeText={setAuthToken}
+            value={gnosisPayApiAuthToken}
+            onChangeText={setgnosisPayApiAuthToken}
             placeholder="Enter Gnosis Pay API auth token"
             placeholderTextColor="#666"
             autoCapitalize="none"
