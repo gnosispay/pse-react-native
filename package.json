@@ -1,7 +1,8 @@
 {
   "name": "@gnosispay/pse-react-native",
-  "main": "lib/index.js",
-  "version": "1.0.5",
+  "main": "expo-router/entry",
+  "expo": "expo-router/entry",
+  "version": "1.0.6",
   "types": "lib/index.d.ts",
   "files": [
     "lib/",
@@ -35,11 +36,17 @@
     "react-native-webview": ">=13.0.0"
   },
   "dependencies": {
+    "@gnosispay/pse-sdk": "^1.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
     "@expo/vector-icons": "^14.1.0",
-    "@gnosispay/pse-sdk": "^1.2.2",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
+    "@types/react": "~19.0.10",
+    "eslint": "^9.25.0",
+    "eslint-config-expo": "~9.2.0",
     "expo": "~53.0.20",
     "expo-blur": "~14.1.5",
     "expo-constants": "~17.1.7",
@@ -61,13 +68,7 @@
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
-    "react-native-webview": ">=13.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@types/react": "~19.0.10",
-    "eslint": "^9.25.0",
-    "eslint-config-expo": "~9.2.0",
+    "react-native-webview": ">=13.0.0",
     "typescript": "~5.8.3"
   }
 }
