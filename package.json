@@ -1,8 +1,7 @@
 {
   "name": "@gnosispay/pse-react-native",
-  "main": "expo-router/entry",
-  "expo": "expo-router/entry",
-  "version": "1.0.6",
+  "main": "lib/index.js",
+  "version": "1.0.7",
   "types": "lib/index.d.ts",
   "files": [
     "lib/",
